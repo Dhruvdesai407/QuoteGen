@@ -1,5 +1,3 @@
----
-
 # ✨ Your Daily Spark: QuoteGen
 
 Feeling stuck? Need a quick burst of wisdom, a fresh perspective, or a powerful thought to share? QuoteGen is your personal wellspring of inspiration, delivered beautifully and tailored just for you.
@@ -21,5 +19,3 @@ Feeling stuck? Need a quick burst of wisdom, a fresh perspective, or a powerful 
 
 **Experience personalized inspiration now:**
 **👉 [QuoteGen](https://dhruvdesai407.github.io/QuoteGen/)**
-
----
