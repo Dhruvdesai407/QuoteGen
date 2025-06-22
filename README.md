@@ -34,12 +34,8 @@ Ready for an upgrade in inspiration?
 
 -----
 
-## 🔗 Connect:
-
-Dive into the code or connect with the creator\!
-
-  * **GitHub Repository:** [Dhruvdesai407/QuoteGen-not-your-random-Quote-generator-](https://www.google.com/search?q=https://github.com/Dhruvdesai407/QuoteGen-not-your-random-Quote-generator-)
+**Get Inspired, Effortlessly. Try QuoteGen\!** 💖
 
 -----
 
-**Get Inspired, Effortlessly. Try QuoteGen\!** 💖
+
