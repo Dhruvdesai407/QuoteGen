@@ -24,7 +24,7 @@ In today's fast-paced digital world, content creation can be a chore. This tool 
 
 ## 🔗 Try it Now\!
 
-[**[Your Tool's URL Here]**](https://www.google.com/search?q=Your_Tool_URL_Goes_Here)
+[**[Quote App]**](https://dhruvdesai407.github.io/Quote-generator/)
 
 -----
 
