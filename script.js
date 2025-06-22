@@ -2,18 +2,34 @@ const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
-const whatsappBtn = document.getElementById('whatsapp'); 
-const linkedinBtn = document.getElementById('linkedin'); 
-const copyBtn = document.getElementById('copy'); 
+const whatsappBtn = document.getElementById('whatsapp');
+const linkedinBtn = document.getElementById('linkedin');
+const copyBtn = document.getElementById('copy');
 const newQuoteBtn = document.getElementById('new-quote');
 const loader = document.getElementById('loader');
 const githubBtn = document.getElementById('github');
 const fontSelect = document.getElementById('font-select');
-const copyMessage = document.getElementById('copy-message'); // New: Copy message element
+const categorySelect = document.getElementById('category-select');
+const copyMessage = document.getElementById('copy-message');
 
 
 let apiQuotes = [];
+let filteredQuotes = [];
 let loadStartTime;
+
+const availableCategories = [
+    "All",
+    "attitude",
+    "beauty",
+    "general",
+    "medical",
+    "men",
+    "motivational",
+    "movies",
+    "patriotism",
+    "peace"
+];
+
 
 function loading() {
   loader.hidden = false;
@@ -27,7 +43,14 @@ function complete() {
 }
 
 function displayQuoteContent() {
-  const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
+  if (filteredQuotes.length === 0) {
+      quoteText.textContent = 'No quotes found for this category.';
+      authorText.textContent = 'Please try another category.';
+      quoteContainer.classList.add('visible');
+      return;
+  }
+
+  const quote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
 
   if (!quote.author) {
     authorText.textContent = 'Unknown';
@@ -35,7 +58,6 @@ function displayQuoteContent() {
     authorText.textContent = quote.author;
   }
 
-  // Check quote length to change font size
   if (quote.text.length > 120) {
     quoteText.classList.add('long-quote');
   } else {
@@ -43,10 +65,20 @@ function displayQuoteContent() {
   }
   
   quoteText.textContent = quote.text;
+  quoteContainer.classList.add('visible');
 }
 
+function transitionQuoteDisplay() {
+  loading();
+  setTimeout(() => {
+    displayQuoteContent();
+    complete();
+  }, 1500);
+}
+
+
 async function getQuotes() {
-  loading(); 
+  loading();
   const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
   try {
     const response = await fetch(apiUrl);
@@ -54,6 +86,8 @@ async function getQuotes() {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
     apiQuotes = await response.json();
+    
+    filteredQuotes = [...apiQuotes]; 
 
     const actualLoadTime = Date.now() - loadStartTime;
     const minimumLoaderDuration = 1500;
@@ -79,7 +113,6 @@ function tweetQuote() {
   window.open(twitterUrl, '_blank');
 }
 
-// New: Share on WhatsApp
 function shareWhatsapp() {
     const quote = quoteText.innerText;
     const author = authorText.innerText;
@@ -87,28 +120,25 @@ function shareWhatsapp() {
     window.open(whatsappUrl, '_blank');
 }
 
-// New: Share on LinkedIn
 function shareLinkedIn() {
     const quote = quoteText.innerText;
     const author = authorText.innerText;
-    const pageUrl = window.location.href; 
+    const pageUrl = window.location.href;
     const linkedInUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent('Inspirational Quote')}&summary=${encodeURIComponent(`${quote} - ${author}`)}&source=${encodeURIComponent('Quote Generator App')}`;
     window.open(linkedInUrl, '_blank');
 }
 
-// New: Copy Quote to Clipboard
 function copyQuote() {
     const quote = quoteText.innerText;
     const author = authorText.innerText;
     const fullQuote = `${quote} - ${author}`;
 
     navigator.clipboard.writeText(fullQuote).then(() => {
-        // Show "Copied!" message
         copyMessage.textContent = 'Copied!';
         copyMessage.classList.add('show');
         setTimeout(() => {
             copyMessage.classList.remove('show');
-        }, 2000); // Hide after 2 seconds
+        }, 2000);
     }).catch(err => {
         console.error('Failed to copy text: ', err);
         copyMessage.textContent = 'Failed to copy!';
@@ -121,7 +151,7 @@ function copyQuote() {
 
 
 function goToGitHub() {
-    window.open('https://github.com/Dhruvdesai407/Quote-generator', '_blank');
+    window.open('https://github.com/Dhruvdesai407/QuoteGen', '_blank'); 
 }
 
 function changeFont(event) {
@@ -129,14 +159,37 @@ function changeFont(event) {
     document.body.style.fontFamily = `'${selectedFont}', sans-serif`;
 }
 
-// Event Listeners
-newQuoteBtn.addEventListener('click', getQuotes);
+function filterQuotesByCategory(event) {
+    const selectedCategory = event.target.value;
+
+    if (selectedCategory === "All") {
+        filteredQuotes = [...apiQuotes];
+    } else {
+        filteredQuotes = apiQuotes.filter(quote => {
+            return typeof quote.tag === 'string' && quote.tag.length > 0 && quote.tag.toLowerCase() === selectedCategory.toLowerCase();
+        });
+    }
+    transitionQuoteDisplay();
+}
+
+function populateCategoryDropdown() {
+    availableCategories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+        categorySelect.appendChild(option);
+    });
+}
+
+
+newQuoteBtn.addEventListener('click', transitionQuoteDisplay);
 twitterBtn.addEventListener('click', tweetQuote);
-whatsappBtn.addEventListener('click', shareWhatsapp); // New
-linkedinBtn.addEventListener('click', shareLinkedIn); // New
-copyBtn.addEventListener('click', copyQuote); // New
+whatsappBtn.addEventListener('click', shareWhatsapp);
+linkedinBtn.addEventListener('click', shareLinkedIn);
+copyBtn.addEventListener('click', copyQuote);
 githubBtn.addEventListener('click', goToGitHub);
 fontSelect.addEventListener('change', changeFont);
+categorySelect.addEventListener('change', filterQuotesByCategory);
 
-// On initial load, fetch quotes
 getQuotes();
+populateCategoryDropdown();
