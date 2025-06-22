@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="loader" id="loader"></div>
+
+    <div class="chooser-container category-chooser-container">
+        <label for="category-select">Category:</label>
+        <select id="category-select">
+            </select>
+    </div>
+
     <div class="quote-container" id="quote-container">
         <div class="quote-text">
             <i class="fas fa-quote-left"></i>
@@ -19,25 +27,27 @@
         </div>
         <div class="button-container">
             <button class="twitter-button" id="twitter" title="Tweet this quote!">
-                <i class="fab fa-twitter"></i> Tweet This Quote </button>
+                <i class="fab fa-twitter"></i> Tweet This Quote
+            </button>
             <button class="whatsapp-button" id="whatsapp" title="Send this quote via WhatsApp">
-                <i class="fab fa-whatsapp"></i> Send This Quote </button>
+                <i class="fab fa-whatsapp"></i> Send This Quote
+            </button>
             <button class="linkedin-button" id="linkedin" title="Share this inspiring Quote Generator with your network on LinkedIn">
                 <i class="fab fa-linkedin-in"></i> Share Site
             </button>
             <button class="copy-button" id="copy" title="Copy the quote to your clipboard">
-                <i class="fas fa-copy"></i> Copy Quote </button>
+                <i class="fas fa-copy"></i> Copy Quote
+            </button>
             <button id="new-quote" title="Get a New Quote">New Quote</button>
             <button id="github" class="github-button" title="View Project on GitHub">
                 <i class="fab fa-github"></i> GitHub
             </button>
         </div>
     </div>
-    <div class="loader" id="loader"></div>
-
+    
     <div class="copy-message" id="copy-message"></div>
 
-    <div class="font-chooser-container">
+    <div class="chooser-container font-chooser-container">
         <label for="font-select">Font Style:</label>
         <select id="font-select">
             <option value="Inter">Inter (Default)</option>
