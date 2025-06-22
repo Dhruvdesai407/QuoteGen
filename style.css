@@ -15,11 +15,12 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 20px;
 }
 
 .quote-container {
@@ -38,6 +39,8 @@ body {
   perspective: 1000px;
   opacity: 0;
   pointer-events: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .quote-container.visible {
@@ -116,8 +119,8 @@ button {
   flex-shrink: 1;
   border: none;
   border-radius: 16px;
-  color: #322D29; 
-  background-color: #D1C7BD; 
+  color: #322D29;
+  background-color: #D1C7BD;
   outline: none;
   padding: 0 18px;
   box-shadow: 0 8px 18px rgba(50, 45, 41, 0.12);
@@ -140,29 +143,28 @@ button:active {
   box-shadow: 0 3px 10px rgba(50, 45, 41, 0.08);
 }
 
-/* Social media buttons - themed to palette */
 .twitter-button,
 .whatsapp-button,
 .linkedin-button {
-  background-color: #AC9C8D; 
-  color: #322D29; 
+  background-color: #AC9C8D;
+  color: #322D29;
   box-shadow: 0 8px 18px rgba(172, 156, 141, 0.2);
 }
 
 .twitter-button:hover,
 .whatsapp-button:hover,
 .linkedin-button:hover {
-  background-color: #928578; /* Darker hover for muted grey-brown */
+  background-color: #928578;
   box-shadow: 0 14px 30px rgba(172, 156, 141, 0.4);
 }
 
 .copy-button {
-  background-color: #D1C7BD; 
+  background-color: #D1C7BD;
   color: #322D29;
   box-shadow: 0 8px 18px rgba(209, 199, 189, 0.2);
 }
 .copy-button:hover {
-  background-color: #C1B4A5; /* Slightly darker hover */
+  background-color: #C1B4A5;
   box-shadow: 0 14px 30px rgba(209, 199, 189, 0.4);
 }
 
@@ -176,7 +178,6 @@ button:active {
   font-size: 1.4rem;
 }
 
-/* Individual icon hover animations */
 .twitter-button:hover .fab { transform: rotate(15deg) scale(1.2); }
 .whatsapp-button:hover .fab { transform: rotate(8deg) scale(1.2); }
 .linkedin-button:hover .fab { transform: scale(1.2); }
@@ -185,8 +186,8 @@ button:active {
 
 
 #new-quote {
-    background-color: #72383D; /* Rich Maroon */
-    color: #EFE9E1; 
+    background-color: #72383D;
+    color: #EFE9E1;
     box-shadow: 0 8px 18px rgba(114, 56, 61, 0.35);
     animation: pulsate 2s infinite ease-in-out;
 }
@@ -208,8 +209,8 @@ button:active {
 }
 
 .github-button {
-    background-color: #322D29; /* Deep Black */
-    color: #EFE9E1; 
+    background-color: #322D29;
+    color: #EFE9E1;
     box-shadow: 0 8px 18px rgba(50, 45, 41, 0.35);
 }
 
@@ -245,10 +246,7 @@ button:active {
   content: "Loading...";
 }
 
-.font-chooser-container {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+.chooser-container {
     z-index: 100;
     background-color: rgba(209, 199, 189, 0.9);
     padding: 10px 15px;
@@ -257,15 +255,16 @@ button:active {
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
 }
 
-.font-chooser-container label {
+.chooser-container label {
     color: #322D29;
     font-size: 0.9rem;
     font-weight: 600;
 }
 
-.font-chooser-container select {
+.chooser-container select {
     background-color: #EFE9E1;
     color: #322D29;
     border: 1px solid #AC9C8D;
@@ -274,13 +273,43 @@ button:active {
     font-size: 0.9rem;
     cursor: pointer;
     outline: none;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.font-chooser-container select:focus {
+.category-chooser-container select#category-select {
+    background-color: #72383D;
+    color: #EFE9E1;
+    border-color: #72383D;
+    box-shadow: 0 4px 10px rgba(114, 56, 61, 0.4);
+}
+
+.category-chooser-container select#category-select:hover,
+.category-chooser-container select#category-select:focus {
+    background-color: #5d2b2f;
+    border-color: #5d2b2f;
+    box-shadow: 0 0 0 3px rgba(114, 56, 61, 0.3), 0 6px 12px rgba(114, 56, 61, 0.5);
+}
+
+
+.chooser-container select:focus {
     border-color: #72383D;
     box-shadow: 0 0 0 3px rgba(114, 56, 61, 0.2);
 }
+
+.font-chooser-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.category-chooser-container {
+    margin-bottom: 20px;
+    max-width: 800px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
 
 .copy-message {
   position: absolute;
@@ -304,9 +333,17 @@ button:active {
 
 
 @media screen and (max-width: 850px) {
+  body {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   .quote-container {
-    margin: 25px;
+    margin: 25px 15px;
     padding: 40px 50px;
+    flex-shrink: 0;
   }
 
   .quote-text {
@@ -336,13 +373,38 @@ button:active {
     font-size: 0.9rem;
     padding: 0 15px;
   }
-  .font-chooser-container {
-      bottom: 10px;
-      right: 10px;
+  
+  .chooser-container {
+      position: relative;
+      margin: 10px auto;
+      width: calc(100% - 20px);
+      max-width: 400px;
       padding: 8px 10px;
       gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
   }
-  .font-chooser-container label, .font-chooser-container select {
+
+  .font-chooser-container {
+      bottom: unset;
+      right: unset;
+      order: 3;
+  }
+
+  .category-chooser-container {
+      top: unset;
+      right: unset;
+      order: 1;
+      margin-top: 0;
+      margin-bottom: 10px;
+  }
+
+  .quote-container {
+      order: 2;
+      margin-top: 10px;
+  }
+
+  .chooser-container label, .chooser-container select {
       font-size: 0.8rem;
   }
   .copy-message {
@@ -385,7 +447,11 @@ button:active {
     padding: 0 10px;
   }
 
-  .fa-twitter, .fa-github, .fa-whatsapp, .fa-linkedin-in, .fa-copy {
+  .twitter-button .fab,
+  .whatsapp-button .fab,
+  .linkedin-button .fab,
+  .copy-button .fas,
+  .github-button .fab {
     font-size: 1.1rem;
     margin-right: 6px;
   }
@@ -421,15 +487,13 @@ button:active {
     font-size: 0.75rem;
     padding: 0 8px;
   }
-  .font-chooser-container {
+  .chooser-container {
       flex-direction: column;
       align-items: flex-start;
-      bottom: 10px;
-      right: 10px;
-      left: 10px;
-      width: auto;
+      padding: 8px 10px;
+      gap: 8px;
   }
-  .font-chooser-container select {
+  .chooser-container select {
       width: 100%;
   }
   .copy-message {
