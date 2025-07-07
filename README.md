@@ -21,7 +21,7 @@ Tired of generic quote apps? QuoteGen delivers a premium experience designed for
 
 Ready for an upgrade in inspiration?
 
-### 👉 **Launch QuoteGen Live:** [Click Here\!](https://dhruvdesai407.github.io/QuoteGen-not-your-random-Quote-generator-/)
+### 👉 **Launch QuoteGen Live:** [Click Here\!](https://dhruvdesai793.github.io/QuoteGen-not-your-random-Quote-generator-/)
 
 -----
 
